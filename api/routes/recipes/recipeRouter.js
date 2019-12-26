@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const Recipes = require('../../../data/helpers/RouterHelpers')
+const Recipes = require('../../../data/helpers/recipe-model')
 
 router.get("/", (req, res, next) => {
   try {
