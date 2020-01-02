@@ -1,26 +1,31 @@
 const express = require('express')
-const router = express.Router()
 const Recipes = require('../../../data/models/recipe-model')
+const router = express.Router()
 
-router.get("/", (req, res, next) => {
+router.get("/", async (req, res, next) => {
   try {
-
+    const recipes = await Recipes.getRecipes()
+    return res.json(recipes)
   } catch (err) {
     next(err)
   }
 })
 
-router.get("/:id", (req, res, next) => {
+router.get("/:id", async (req, res, next) => {
   try {
-
+    const { id } = req.params
+    const recipe = await Recipes.getRecipeById(id)
+    return res.json(recipe)
   } catch (err) {
     next(err)
   }
 })
 
-router.post("/", (req, res, next) => {
+router.post("/", async (req, res, next) => {
   try {
-
+    const [id] = await db("recipes").insert(req.body)
+    const newRecipe = await db("recipes").where('id', id).first()
+    return res.status(201).json(newRecipe)
   } catch (err) {
     next(err)
   }
