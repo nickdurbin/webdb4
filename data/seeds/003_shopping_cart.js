@@ -4,8 +4,8 @@ exports.seed = function(knex) {
     .truncate()
     .then(function () {
       return knex('shopping_cart').insert([
-        {id: 1, ingredient_id: 1, quantity: 3, quantity_type: 'oz'},
-        {id: 2, ingredient_id: 2, quantity: 1, quantity_type: 'Orange'},
+        {ingredient_id: 1, recipe_id: 1},
+        {ingredient_id: 2, recipe_id: 2},
     ]);
   });
 };
