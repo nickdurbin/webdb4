@@ -5,9 +5,17 @@ exports.up = function(knex) {
       .notNullable()
       .unique()
   })
-  .createTable('shopping_cart', (table) => {
+  .createTable('recipes', (table) => {
     table.increments()
+    table.string('recipe_name', 128)
+    .notNullable()
+    .unique()
     
+    table.float('quantity').notNullable()
+    table.string('quantity_type').notNullable()
+    table.text('instructions').notNullable()
+  })
+  .createTable('shopping_cart', (table) => {
     table.integer('ingredient_id')
       .unsigned()
       .notNullable()
@@ -15,29 +23,22 @@ exports.up = function(knex) {
       .inTable('ingredients')
       .onUpdate('CASCADE')
       .onDelete('CASCADE')
-    table.float('quantity').notNullable()
-    table.string('quantity_type').notNullable()
-  })
-  .createTable('recipes', (table) => {
-    table.increments()
-    table.string('recipe_name', 128)
-      .notNullable()
-      .unique()
 
-    table.integer('shopping_cart_id')
+    table.integer('recipe_id')
       .unsigned()
       .notNullable()
       .references('id')
-      .inTable('shopping_cart')
+      .inTable('recipes')
       .onUpdate('CASCADE')
       .onDelete('CASCADE')
-    table.text('instructions').notNullable()
+    
+    table.primary(['ingredient_id', 'recipe_id']);
   })
 };
 
 exports.down = function(knex) {
   return knex.schema
-    .dropTableIfExists('recipes')
     .dropTableIfExists('shopping_cart')
+    .dropTableIfExists('recipes')
     .dropTableIfExists('ingredients')
 };
