@@ -1,25 +1,45 @@
 const db = require('../dbConfig')
 
 async function getInstructions(id) {
-  return await db('recipe').select('instructions').where({ id: recipe_id }).first()
+  return await db('recipes').select('instructions').where({ id: recipe_id }).first()
 }
 
 async function getRecipes() {
-  return await db('recipes')
+  return await db('recipes').select()
 }
 
 async function getRecipeById(id) {
   return await db('recipes').where({ id }).first()
 }
 
-async function getShoppingList(id) {
-  return await db('recipes')
+async function getShoppingCart(id) {
+  return await db('shopping_cart').where({ id }).first()
 }
 
+async function removeRecipe(id) {
+  return await db('recipes')
+  .where({ id })
+  .del()
+}
+
+async function removeIngredient(id) {
+  return await db('ingredients')
+  .where({ id })
+  .del()
+}
+
+async function removeShoppingCart(id) {
+  return await db('shopping_cart')
+  .where({ id })
+  .del()
+}
 
 module.exports = {
   getInstructions,
   getRecipes,
   getRecipeById,
-  getShoppingList
+  getShoppingCart,
+  removeRecipe,
+  removeIngredient,
+  removeShoppingCart
 }
