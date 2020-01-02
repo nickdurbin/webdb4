@@ -23,5 +23,5 @@ exports.up = function(knex) {
 exports.down = function(knex) {
   return knex.schema
     .dropTableIfExits('recipes')
-    .dropTableIfExits('ingedients')
+    .dropTableIfExits('ingredients')
 };
