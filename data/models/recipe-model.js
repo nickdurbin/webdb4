@@ -5,7 +5,7 @@ async function getInstructions(id) {
 }
 
 async function getRecipes() {
-  return await db('recipes').select()
+  return await db('recipes')
 }
 
 async function getRecipeById(id) {
